@@ -19,8 +19,8 @@ public class CallerService {
       .build();
     RetryRegistry registry = RetryRegistry.of(config);
     Retry retry = registry.retry("service");
-    Supplier<Boolean> serviceSupplier = () -> service.call(1);
-    Supplier<Boolean> retryingService = Retry.decorateSupplier(retry, serviceSupplier);
+    Supplier<Void> serviceSupplier = () -> service.call(1);
+    Supplier<Void> retryingService = Retry.decorateSupplier(retry, serviceSupplier);
     try {
       retryingService.get();
     } catch (Exception e) {
